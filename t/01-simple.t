@@ -12,9 +12,9 @@ package #
   My;
 
 package My;
-use Moose;
+use Moo;
 
-with "MooseX::File::ConfigDir";
+with "MooX::File::ConfigDir";
 
 1;
 

@@ -3,8 +3,8 @@
 use Test::More tests => 1;
 
 BEGIN {
-    use_ok( 'MooseX::File::ConfigDir' ) || print "Bail out!
+    use_ok( 'MooX::File::ConfigDir' ) || print "Bail out!
 ";
 }
 
-diag( "Testing MooseX::File::ConfigDir $MooseX::File::ConfigDir::VERSION, Perl $], $^X" );
+diag( "Testing MooX::File::ConfigDir $MooX::File::ConfigDir::VERSION, Perl $], $^X" );
