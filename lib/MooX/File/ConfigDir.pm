@@ -3,7 +3,7 @@ package MooX::File::ConfigDir;
 use strict;
 use warnings;
 
-# ABSTRACT: Moo eXtension for File::ConfigDir
+our $VERSION = "0.001";
 
 use namespace::autoclean;
 
@@ -39,6 +39,9 @@ my @file_config_dir_attrs = (
           );
  }
 
+=head1 NAME
+
+MooX::File::ConfigDir - Moo eXtension for File::ConfigDir
 
 =head1 SYNOPSIS
 
