@@ -11,14 +11,15 @@ use Moo::Role;
 use File::ConfigDir ();
 
 has 'config_identifier' => (
-                            is  => 'ro',
-                          );
+                             is => 'ro',
+                           );
+
 sub _fetch_file_config_dir
 {
     my ( $self, $attr ) = @_;
     my $app_name  = $self->config_identifier;
     my @app_names = $app_name ? ($app_name) : ();
-    my $sub = File::ConfigDir->can($attr);
+    my $sub       = File::ConfigDir->can($attr);
     my @dirs      = &{$sub}(@app_names);
     return \@dirs;
 }
@@ -30,14 +31,14 @@ my @file_config_dir_attrs = (
                               qw(xdg_config_home config_dirs)
                             );
 
- foreach my $attr (@file_config_dir_attrs)
- {
-     has $attr => (
-            is      => 'ro',
-            lazy    => 1,
-            builder => sub { $_[0]->_fetch_file_config_dir($attr) },
-          );
- }
+foreach my $attr (@file_config_dir_attrs)
+{
+    has $attr => (
+                   is      => 'ro',
+                   lazy    => 1,
+                   builder => sub { $_[0]->_fetch_file_config_dir($attr) },
+                 );
+}
 
 =head1 NAME
 
