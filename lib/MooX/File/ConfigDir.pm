@@ -147,6 +147,56 @@ Tries to get all available configuration directories as described above.
 Returns those who exists and are readable.
 For details see L<File::ConfigDir/config_dirs>.
 
+=head1 AUTHOR
+
+Jens Rehsack, C<< <rehsack at cpan.org> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to
+C<bug-moox-file-configdir at rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooX-File-ConfigDir>.
+I will be notified, and then you'll automatically be notified of progress
+on your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc MooX::File::ConfigDir
+
+You can also look for information at:
+
+=over 4
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=MooX-File-ConfigDir>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/MooX-File-ConfigDir>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/m/MooX-File-ConfigDir>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/MooX-File-ConfigDir/>
+
+=back
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2013 Jens Rehsack.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.
+
 =cut
 
 1;
