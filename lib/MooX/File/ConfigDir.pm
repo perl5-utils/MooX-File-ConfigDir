@@ -6,27 +6,39 @@ use warnings;
 our $VERSION = "0.002";
 
 use namespace::autoclean;
+use Scalar::Util qw(blessed);
 
 use Moo::Role;
 use File::ConfigDir ();
 
 has 'config_identifier' => (
-                             is => 'ro',
+                             is => 'lazy',
                            );
+
+sub _build_config_identifier {}
 
 sub _fetch_file_config_dir
 {
-    my ( $self, $attr ) = @_;
-    my $app_name  = $self->config_identifier;
+    my ( $self, $attr, $params ) = @_;
+    my $app_name = blessed($self) ? $self->config_identifier
+      : ( defined $params and defined $params->{config_identifier} ) ? $params->{config_identifier}
+      : $self->can('_build_config_identifier') ? $self->_build_config_identifier($params)
+      :                                          undef;
     my @app_names = $app_name ? ($app_name) : ();
     my $sub       = File::ConfigDir->can($attr);
     my @dirs      = &{$sub}(@app_names);
     return \@dirs;
 }
 
+has singleapp_cfg_dir => (
+                   is      => 'ro',
+                   lazy    => 1,
+                   builder => sub { [ File::ConfigDir::singleapp_cfg_dir ] },
+);
+
 my @file_config_dir_attrs = (
                               qw(system_cfg_dir xdg_config_dirs desktop_cfg_dir),
-                              qw(core_cfg_dir site_cfg_dir vendor_cfg_dir singleapp_cfg_dir),
+                              qw(core_cfg_dir site_cfg_dir vendor_cfg_dir ),
                               qw(local_cfg_dir locallib_cfg_dir here_cfg_dir user_cfg_dir),
                               qw(xdg_config_home config_dirs)
                             );
@@ -36,7 +48,7 @@ foreach my $attr (@file_config_dir_attrs)
     has $attr => (
                    is      => 'ro',
                    lazy    => 1,
-                   builder => sub { $_[0]->_fetch_file_config_dir($attr) },
+                   builder => sub { my $self = shift; $self->_fetch_file_config_dir( $attr, @_ ) },
                  );
 }
 
@@ -79,6 +91,10 @@ on the requirements.
 Allows to deal with a global unique identifier passed to the functions of
 L<File::ConfigDir>. Using it encapsulates configuration files from the
 other ones (eg. C</etc/apache2> vs. C</etc>).
+
+C<config_identifier> can be initialized by specifying it as parameter
+during object construction or via inheriting default builder
+(C<_build_config_identifier>).
 
 =head2 system_cfg_dir
 

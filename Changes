@@ -1,4 +1,11 @@
 Revision history for Perl module MooX::File::ConfigDir
 
+0.002 2013-09-26
+    - improve initialization support (builder for config_identifier)
+    - improve builders for the config dir attributes to call them from
+      within BUILDARGS
+    - fix singleapp_cfg_dir builder (using it with config_identifier is
+      tautologous)
+
 0.001 2013-09-21
     - First version, released on an unsuspecting world.
