@@ -3,7 +3,7 @@ package MooX::File::ConfigDir;
 use strict;
 use warnings;
 
-our $VERSION = "0.002";
+our $VERSION = "0.003";
 
 use namespace::autoclean;
 use Scalar::Util qw(blessed);
