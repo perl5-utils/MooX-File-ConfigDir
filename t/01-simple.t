@@ -11,7 +11,6 @@ eval {
 package #
   My;
 
-package My;
 use Moo;
 
 with "MooX::File::ConfigDir";
