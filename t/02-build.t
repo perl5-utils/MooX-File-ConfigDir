@@ -41,11 +41,15 @@ my @supported_functions = (
 			    qw(xdg_config_dirs xdg_config_home user_cfg_dir),
                           );
 
+my $diag = Test::More->can('diag');
+my $note = Test::More->can('note');
+
 foreach my $fn (@supported_functions)
 {
     my $dirs_ = $mxfcd_->$fn;
     my $_dirs = $_mxfcd->$fn;
-    is_deeply( $dirs_, $_dirs, "$fn" ) or diag( "$fn", explain($dirs_), explain($_dirs) );
+    my $report = is_deeply( $dirs_, $_dirs, "$fn" ) ? $note : $diag;
+    $report->( "$fn", explain($dirs_), explain($_dirs) );
 }
 
 done_testing();
