@@ -5,7 +5,7 @@ use warnings;
 
 our $VERSION = "0.003";
 
-use namespace::autoclean;
+use namespace::clean;
 use Scalar::Util qw(blessed);
 
 use Moo::Role;
