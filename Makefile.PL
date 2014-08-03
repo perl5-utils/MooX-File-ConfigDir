@@ -102,7 +102,7 @@ sub WriteMakefile1
         my $ok = CheckConflicts(%params);
         exit(0) if ( $params{PREREQ_FATAL} and not $ok );
         my $cpan_smoker = grep { $_ =~ m/(?:CR_SMOKER|CPAN_REPORTER|AUTOMATED_TESTING)/ } keys %ENV;
-        unless ( $cpan_smoker || $ENV{PERL_MM_USE_DEFAULT} || $ENV{SQL_STATEMENT_WARN_UPDATE} )
+        unless ( $cpan_smoker || $ENV{PERL_MM_USE_DEFAULT} )
         {
             sleep 4 unless ($ok);
         }
