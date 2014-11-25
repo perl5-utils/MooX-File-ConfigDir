@@ -9,6 +9,5 @@ use Test::More;
 use Test::Kwalitee 'kwalitee_ok';
 
 kwalitee_ok();
-#kwalitee_ok(qw( -has_readme ));
 
 done_testing;
