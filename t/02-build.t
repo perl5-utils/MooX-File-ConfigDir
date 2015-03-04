@@ -1,7 +1,7 @@
 #!perl
 
 use strict;
-use warnings;
+use warnings FATAL => "all";
 
 eval {
     require local::lib;
@@ -10,24 +10,42 @@ eval {
 
 use FindBin qw/$Script/;
 
-package #
-  My;
+{
+    package #
+      My;
 
-use Moo;
+    use Moo;
 
-with "MooX::File::ConfigDir";
+    with "MooX::File::ConfigDir";
+}
 
-package #
-   Mine;
+{
+    package #
+       Mine;
 
-use Moo;
+    use Moo;
 
-sub _build_config_identifier { $FindBin::Script }
+    sub _build_config_identifier { $FindBin::Script }
 
-with "MooX::File::ConfigDir";
+    with "MooX::File::ConfigDir";
+}
 
-package #
-  main;
+{
+    package #
+      Fail;
+
+    use Moo;
+
+    with "MooX::File::ConfigDir";
+
+    around BUILDARGS => sub {
+        my $next          = shift;
+        my $class         = shift;
+        $class->$next(
+            @_, config_dirs => $class->_build_config_dirs,
+        );
+    };
+}
 
 use Test::More;
 
@@ -51,5 +69,12 @@ foreach my $fn (@supported_functions)
     my $report = is_deeply( $dirs_, $_dirs, "$fn" ) ? $note : $diag;
     $report->( "$fn", explain($dirs_), explain($_dirs) );
 }
+
+eval {
+    my $fail = Fail->new;
+};
+# either $self or $params must be valid
+my $err = $@;
+like( $err, qr/either \$self or \$params must be valid/, "Load fails expectedly" );
 
 done_testing();

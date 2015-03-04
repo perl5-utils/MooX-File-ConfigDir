@@ -1,7 +1,7 @@
 #!perl
 
 use strict;
-use warnings;
+use warnings FATAL => "all";
 
 eval {
     require local::lib;
