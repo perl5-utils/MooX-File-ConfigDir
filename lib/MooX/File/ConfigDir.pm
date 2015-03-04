@@ -5,6 +5,7 @@ use warnings;
 
 our $VERSION = "0.005";
 
+use Carp qw/croak/;
 use Scalar::Util qw(blessed);
 use File::ConfigDir ();
 use namespace::clean;
@@ -20,10 +21,10 @@ sub _build_config_identifier {}
 sub _fetch_file_config_dir
 {
     my ( $self, $attr, $params ) = @_;
+    croak "either \$self or \$params must be valid" unless blessed $self or "HASH" eq ref $params;
     my $app_name = blessed($self) ? $self->config_identifier
-      : ( defined $params and defined $params->{config_identifier} ) ? $params->{config_identifier}
-      : $self->can('_build_config_identifier') ? $self->_build_config_identifier($params)
-      :                                          undef;
+      : defined $params->{config_identifier} ? $params->{config_identifier}
+      : $self->_build_config_identifier($params);
     my @app_names = $app_name ? ($app_name) : ();
     my $sub       = File::ConfigDir->can($attr);
     my @dirs      = &{$sub}(@app_names);
@@ -33,6 +34,7 @@ sub _fetch_file_config_dir
 has singleapp_cfg_dir => (
                    is      => 'ro',
                    lazy    => 1,
+		   clearer => 1,
                    builder => sub { [ File::ConfigDir::singleapp_cfg_dir ] },
 );
 
@@ -48,6 +50,7 @@ foreach my $attr (@file_config_dir_attrs)
     has $attr => (
                    is      => 'ro',
                    lazy    => 1,
+		   clearer => 1,
                    builder => sub { my $self = shift; $self->_fetch_file_config_dir( $attr, @_ ) },
                  );
 }
@@ -171,7 +174,7 @@ Jens Rehsack, C<< <rehsack at cpan.org> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to
-C<bug-moox-file-configdir at rt.cpan.org>, or through the web interface at
+C<bug-MooX-File-ConfigDir at rt.cpan.org>, or through the web interface at
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=MooX-File-ConfigDir>.
 I will be notified, and then you'll automatically be notified of progress
 on your bug as I make changes.
@@ -206,7 +209,7 @@ L<http://search.cpan.org/dist/MooX-File-ConfigDir/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013-2014 Jens Rehsack.
+Copyright 2013-2015 Jens Rehsack.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
