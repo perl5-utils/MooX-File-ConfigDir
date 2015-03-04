@@ -13,18 +13,19 @@ use namespace::clean;
 use Moo::Role;
 
 has 'config_identifier' => (
-                             is => 'lazy',
-                           );
+    is => 'lazy',
+);
 
-sub _build_config_identifier {}
+sub _build_config_identifier { }
 
 sub _fetch_file_config_dir
 {
     my ( $self, $attr, $params ) = @_;
     croak "either \$self or \$params must be valid" unless blessed $self or "HASH" eq ref $params;
-    my $app_name = blessed($self) ? $self->config_identifier
+    my $app_name =
+        blessed($self)                       ? $self->config_identifier
       : defined $params->{config_identifier} ? $params->{config_identifier}
-      : $self->_build_config_identifier($params);
+      :                                        $self->_build_config_identifier($params);
     my @app_names = $app_name ? ($app_name) : ();
     my $sub       = File::ConfigDir->can($attr);
     my @dirs      = &{$sub}(@app_names);
@@ -32,27 +33,27 @@ sub _fetch_file_config_dir
 }
 
 has singleapp_cfg_dir => (
-                   is      => 'ro',
-                   lazy    => 1,
-		   clearer => 1,
-                   builder => sub { [ File::ConfigDir::singleapp_cfg_dir ] },
+    is      => 'ro',
+    lazy    => 1,
+    clearer => 1,
+    builder => sub { [File::ConfigDir::singleapp_cfg_dir] },
 );
 
 my @file_config_dir_attrs = (
-                              qw(system_cfg_dir xdg_config_dirs desktop_cfg_dir),
-                              qw(core_cfg_dir site_cfg_dir vendor_cfg_dir ),
-                              qw(local_cfg_dir locallib_cfg_dir here_cfg_dir user_cfg_dir),
-                              qw(xdg_config_home config_dirs)
-                            );
+    qw(system_cfg_dir xdg_config_dirs desktop_cfg_dir),
+    qw(core_cfg_dir site_cfg_dir vendor_cfg_dir ),
+    qw(local_cfg_dir locallib_cfg_dir here_cfg_dir user_cfg_dir),
+    qw(xdg_config_home config_dirs)
+);
 
 foreach my $attr (@file_config_dir_attrs)
 {
     has $attr => (
-                   is      => 'ro',
-                   lazy    => 1,
-		   clearer => 1,
-                   builder => sub { my $self = shift; $self->_fetch_file_config_dir( $attr, @_ ) },
-                 );
+        is      => 'ro',
+        lazy    => 1,
+        clearer => 1,
+        builder => sub { my $self = shift; $self->_fetch_file_config_dir( $attr, @_ ) },
+    );
 }
 
 =head1 NAME
