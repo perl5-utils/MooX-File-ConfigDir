@@ -19,7 +19,7 @@ sub _build_config_identifier { }
 
 sub _fetch_file_config_dir
 {
-    my ( $self, $attr, $params ) = @_;
+    my ($self, $attr, $params) = @_;
     croak "either \$self or \$params must be valid" unless blessed $self or "HASH" eq ref $params;
     my $app_name =
         blessed($self)                       ? $self->config_identifier
@@ -51,7 +51,7 @@ foreach my $attr (@file_config_dir_attrs)
         is      => 'ro',
         lazy    => 1,
         clearer => 1,
-        builder => sub { my $self = shift; $self->_fetch_file_config_dir( $attr, @_ ) },
+        builder => sub { my $self = shift; $self->_fetch_file_config_dir($attr, @_) },
     );
 }
 
