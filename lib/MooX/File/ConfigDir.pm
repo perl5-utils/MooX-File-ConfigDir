@@ -8,7 +8,6 @@ our $VERSION = "0.006";
 use Carp qw/croak/;
 use Scalar::Util qw(blessed);
 use File::ConfigDir ();
-use namespace::clean;
 
 use Moo::Role;
 
@@ -41,7 +40,7 @@ has singleapp_cfg_dir => (
 
 my @file_config_dir_attrs = (
     qw(system_cfg_dir xdg_config_dirs desktop_cfg_dir),
-    qw(core_cfg_dir site_cfg_dir vendor_cfg_dir ),
+    qw(core_cfg_dir site_cfg_dir vendor_cfg_dir vendorapp_cfg_dir),
     qw(local_cfg_dir locallib_cfg_dir here_cfg_dir user_cfg_dir),
     qw(xdg_config_home config_dirs)
 );
@@ -136,6 +135,13 @@ Provides the configuration directory of C<$0> if it's installed as
 a separate package - either a program bundle (TSM, Oracle DB) or
 an independent package combination (eg. via L<pkgsrc|http://www.pkgsrc.org/>
 For details see L<File::ConfigDir/singleapp_cfg_dir>.
+
+=head2 vendorapp_cfg_dir
+
+Provides the configuration directory of C<$0> if it's installed as
+a separate package via a vendor installation as e.g. L<PkgSrc|http://www.pkgsrc.org/>
+or L<Homebrew|https://brew.sh/>.
+For details see L<File::ConfigDir/vendorapp_cfg_dir>.
 
 =head2 local_cfg_dir
 
