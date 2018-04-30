@@ -59,6 +59,13 @@ foreach my $attr (@file_config_dir_attrs)
 
 MooX::File::ConfigDir - Moo eXtension for File::ConfigDir
 
+=begin html
+
+<a href="https://travis-ci.org/perl5-utils/MooX-File-ConfigDir"><img src="https://travis-ci.org/perl5-utils/MooX-File-ConfigDir.svg?branch=master" alt="Travis CI"/></a>
+<a href='https://coveralls.io/github/perl5-utils/MooX-File-ConfigDir?branch=master'><img src='https://coveralls.io/repos/github/perl5-utils/MooX-File-ConfigDir/badge.svg?branch=master' alt='Coverage Status'/></a>
+
+=end html
+
 =head1 SYNOPSIS
 
     my App;
