@@ -27,7 +27,7 @@ WriteMakefile1(
         resources   => {
             homepage   => 'https://metacpan.org/release/MooX-File-ConfigDir',
             repository => {
-                url  => 'https://github.com:perl5-utils/MooX-File-ConfigDir.git',
+                url  => 'https://github.com/perl5-utils/MooX-File-ConfigDir.git',
                 web  => 'https://github.com/perl5-utils/MooX-File-ConfigDir',
                 type => 'git',
             },
