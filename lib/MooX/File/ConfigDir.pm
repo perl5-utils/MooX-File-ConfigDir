@@ -93,7 +93,7 @@ on the requirements.
 
 Allows to deal with a global unique identifier passed to the functions of
 L<File::ConfigDir>. Using it encapsulates configuration files from the
-other ones (eg. C</etc/apache2> vs. C</etc>).
+other ones (e.g. C</etc/apache2> vs. C</etc>).
 
 C<config_identifier> can be initialized by specifying it as parameter
 during object construction or via inheriting default builder
@@ -133,7 +133,7 @@ For details see L<File::ConfigDir/vendor_cfg_dir>.
 
 Provides the configuration directory of C<$0> if it's installed as
 a separate package - either a program bundle (TSM, Oracle DB) or
-an independent package combination (eg. via L<pkgsrc|http://www.pkgsrc.org/>
+an independent package combination (e.g. via L<PkgSrc|http://www.pkgsrc.org/>
 For details see L<File::ConfigDir/singleapp_cfg_dir>.
 
 =head2 vendorapp_cfg_dir
